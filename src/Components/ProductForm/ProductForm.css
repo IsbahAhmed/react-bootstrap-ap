@@ -1,0 +1,17 @@
+.image-prev-box{
+    height:200px;
+    border:1px solid var(--dark);
+    position: relative;
+}
+.image-prev-box img{
+width: 100%;
+height: 100%;
+}
+.dlt_img{
+    position: absolute;
+    font-size: 20px;
+    right: 0;
+    top: 0;
+    transform: translate(50%,-50%);
+ cursor: pointer;
+}

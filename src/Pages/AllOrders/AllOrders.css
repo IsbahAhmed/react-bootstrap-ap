@@ -1,0 +1,7 @@
+.order-table{
+}
+.order-table.table{
+    width: 200%;
+    overflow-x: auto !important;
+    padding:10px;
+}

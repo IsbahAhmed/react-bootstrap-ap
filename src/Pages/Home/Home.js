@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye,faDollarSign,faUsers } from '@fortawesome/free-solid-svg-icons'
@@ -7,6 +7,7 @@ import {faTwitter,faFacebook} from "@fortawesome/free-brands-svg-icons"
 import Graph from '../../Components/Graph/Graph'
 import UserTable from '../../Components/Table/Table'
 import Weather from '../../Components/Weather/Weather'
+import OrderTable from '../../Components/OrderTable/OrderTable'
 const Home = () => {
     var Styles = styled.div`
     .row > div{
@@ -115,7 +116,9 @@ i,svg{
            </Row>
 
            <Graph/>
-           <UserTable/>
+        <Container style={{overflowX:'scroll'}} >
+        <OrderTable/>
+        </Container>
            <Weather/>
         </Styles>
     )

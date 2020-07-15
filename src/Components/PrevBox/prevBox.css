@@ -1,0 +1,7 @@
+.prevImg {
+    transition: all 200ms ease-out;
+    filter: blur(5px);
+}
+.un-blur{
+filter:blur(0px)
+}

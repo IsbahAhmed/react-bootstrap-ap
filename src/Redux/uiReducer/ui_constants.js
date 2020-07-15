@@ -1,0 +1,1 @@
+export var SIDEBAR_TOGGLE = "SIDEBAR_TOGGLE";

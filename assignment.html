@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+   <script>
+       var input1 = "//hello"
+       var input2 = "hello"
+       var input3 = "/*hello"
+       var commentChecker = (string)=>{
+        
+      if(string[0]==="/" ){
+          if(string[1]==="/" || string[1]==="*"){
+              console.log("It is a comment")
+          }
+      }
+      else{
+          console.log("it is not a comment")
+      }
+       }
+       commentChecker(input1)
+       commentChecker(input2)
+       commentChecker(input3)
+
+   </script> 
+</body>
+</html>

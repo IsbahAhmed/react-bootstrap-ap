@@ -3,7 +3,13 @@ import {Navbar,Form,Button,Nav,NavDropdown,FormControl, Dropdown} from "react-bo
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faHome, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faHome, faEnvelope, faBell } from '@fortawesome/free-solid-svg-icons'
+import { connect } from 'react-redux';
+import {sidebarToggler} from "../../Redux/uiReducer/ui_actions";
+import { fetchCatagories } from "../../Redux/catagoryReducer/catagoryActions";
+import { useEffect } from 'react';
+import { fetchProducts } from '../../Redux/productsReducer/productActions';
+
 const Styles = styled.div`
 .navbar{
     width:100%;
@@ -58,27 +64,32 @@ a{
 }
 `;
 const Navigation = (props) => {
+  var {sidebarToggler,sidebarActive,fetchCatagories,fetchProducts} = props;
+  //fetch catagories
+  useEffect(()=>{
+  fetchCatagories();
+  fetchProducts()
+  },[])
 
-  var {handleSideBarToggler,sideBarActive} = props
     return (
         <Styles>
 
-             <Navbar expand="lg">
-      <Button className="mr-3" className="toggle-btn" onClick={()=>{handleSideBarToggler(sideBarActive)}}>	&#9776;</Button>   
+             <Navbar expand="lg" style={{paddingRight:"150px"}}>
+      <Button className="mr-3" className="toggle-btn" onClick={()=>{sidebarToggler(sidebarActive)}}>	&#9776;</Button>   
      
   <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className=" ml-auto">
+    <Nav className=" ml-auto ">
     <Link className="nav-link" to="/">
       <FontAwesomeIcon icon={faHome}/>
     </Link>
-    <Link className="nav-link" to="/">
+    <Link className="nav-link" to="/Messages">
     <FontAwesomeIcon   icon={faEnvelope}/>
     </Link>
     <Dropdown>
   <Dropdown.Toggle  id="dropdown-basic">
-   <FontAwesomeIcon icon={faCog}/>
+   <FontAwesomeIcon icon={faBell}/>
   </Dropdown.Toggle>
 
   <Dropdown.Menu>
@@ -88,14 +99,18 @@ const Navigation = (props) => {
   </Dropdown.Menu>
 </Dropdown>
     </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-success">Search</Button>
-    </Form>
+
   </Navbar.Collapse>
 </Navbar>
         </Styles>
     )
 }
-
-export default Navigation
+var mapState = (state)=>({
+  sidebarActive:state.ui.sidebarActive
+})
+var actions = {
+  sidebarToggler,
+  fetchCatagories,
+  fetchProducts
+}
+export default connect(mapState,actions)(Navigation)

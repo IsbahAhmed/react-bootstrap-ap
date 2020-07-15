@@ -1,93 +1,82 @@
-import React, { Component } from 'react'
-import { Col } from 'react-bootstrap'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
- class SidebarListItem extends Component {
-state = {
-    collapsed:true
-}
-colors = {
-    blue:"#002e47",
-    grey:"#444444",
-    dark_grey:"#252525"
-}
-    navCollapse = styled.div`
-    padding:0;
-  background:${this.colors.dark_grey};
-height:min-content;
-   
-  
-     .nav-collapse{
-   
-  
-     margin:0;
-     padding:0;
-        transition:all 300ms ease;
-    }
-     li{
-        /* margin:10px 0; */
+import React, {  useState } from "react";
+import { Col, Collapse } from "react-bootstrap";
+import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import "./SideBarListItem.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+const SidebarListItem = (props) => {
+  var { head, link, subMenu,icon } = props.item;
+  var [collapsed, setCollpsed] = useState("true");
+  const [open, setOpen] = useState(false);
+  var colors = {
+    blue: "#002e47",
+    grey: "#444444",
+    dark_grey: "#252525",
+  };
+  var NavCollapse = styled.div`
+    padding: 0;
+    background: ${colors.dark_grey};
 
-        list-style:none;
-        padding:10px 70px;
-       transition:background 300ms ease;
-        /* border-radius:20px; */
-        &:hover{
-            background:${(this.colors.grey)}
-            
-        }
+    transition-property:height;
+    transition-duration:300ms;
+    -webkit-transition: all 300ms ease;
+      overflow-y:hidden;
+      /* height:${({collapsed})=> collapsed=== "true" ? "0":collapsed === "false"?"min-content":""}; */
+
+    li {
+      /* margin:10px 0; */
+   
+      list-style: none;
+      padding: 10px 70px;
+      transition: background 300ms ease;
+      /* border-radius:20px; */
+      &:hover {
+        background: ${colors.grey};
+      }
+    }
+    .menu-name{
+   
        
     }
-    a{
-          text-decoration:none;
-          color:white;
-     
-      } 
-    `
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  `;
+var navCollapser = ()=>{
+   if(collapsed === "true"){
+       setCollpsed("false")
+   }
+   else if(collapsed === "false"){
+       setCollpsed("true")
+   }
+}
+  return (
+    <Col lg={12} className="menu-item px-0">
+    
+    
+    <h5 className="menu-name " 
+    onClick={() => setOpen(!open)}
+    aria-controls="collapse-nav"
+    aria-expanded={open}
+    
+    ><FontAwesomeIcon style={{paddingRight:"5px"}} icon={icon}/>  {head}</h5>
 
-getSiblings = function (elem) {
-
-	// Setup siblings array and get the first sibling
-	var siblings = [];
-	var sibling = elem.parentNode.firstChild;
-
-	// Loop through each sibling and push to the array
-	while (sibling) {
-		if (sibling.nodeType === 1 && sibling !== elem) {
-			siblings.push(sibling);
-		}
-		sibling = sibling.nextSibling;
-	}
-
-	return siblings;
-
+    <Collapse in={open}>
+    <div id="collapse-nav">
+    <NavCollapse as="ul"  className={`nav-collapse my-0`}>
+        {subMenu.map((ele) => (
+          <Link key={uuidv4()} to={ele.link}>
+         <li >{ele.name}</li>
+          </Link>
+        ))}
+      </NavCollapse>
+    </div>
+    </Collapse>
+    </Col>
+  );
 };
 
-    handleNavCollapse = (e)=>{
-        var {collapsed} = this.state;
-
-        collapsed = !collapsed;
-        this.setState({
-            collapsed
-        })
-        var siblings = this.getSiblings(e.target)
-        var navCollapse = siblings[0]
-
-    }
-    render() {
-        var {head,link,subMenu} = this.props.item;
-        return (
-            <Col lg={12}   className="menu-item px-0" >
-            <h5 className="menu-name" onClick={
-             this.handleNavCollapse
-            }>{head}</h5>
-            
-         <this.navCollapse as='ul' collapsed={this.state.collapsed} className="nav-collapse">
-        {subMenu.map((ele)=> <Link key={uuidv4()} to={ele.link}><li>{ele.name}</li></Link>)}
-         </this.navCollapse>
-         </Col>
-        )
-    }
-}
-
-export default SidebarListItem
+export default SidebarListItem;
