@@ -93,7 +93,12 @@ subMenu:[{
     name:"Messages",
     link:"/contacts/Messages"
 }
-
+,
+{
+    name:"Newsletter Subcriptions",
+    link:"/contacts/newsletter_subs"
+}
 ]
 }
+
 ]

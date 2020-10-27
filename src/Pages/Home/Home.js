@@ -117,7 +117,7 @@ i,svg{
 
            <Graph/>
         <Container style={{overflowX:'scroll'}} >
-        <OrderTable/>
+        <OrderTable ordersType={'pending_orders'}/>
         </Container>
            <Weather/>
         </Styles>

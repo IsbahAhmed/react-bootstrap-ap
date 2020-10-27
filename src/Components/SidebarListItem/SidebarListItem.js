@@ -1,11 +1,11 @@
 import React, {  useState } from "react";
 import { Col, Collapse } from "react-bootstrap";
-import styled, { ThemeProvider } from "styled-components";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import "./SideBarListItem.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+
 const SidebarListItem = (props) => {
   var { head, link, subMenu,icon } = props.item;
   var [collapsed, setCollpsed] = useState("true");
@@ -53,8 +53,13 @@ var navCollapser = ()=>{
        setCollpsed("true")
    }
 }
+var history = useHistory()
+
+var gotoLink = (link)=>{
+  history.push(link)
+}
   return (
-    <Col lg={12} className="menu-item px-0">
+    <Col lg={12} className="menu-item px-0" onClick={(link) ? ()=> gotoLink(link):()=>{console.clear()}}>
     
     
     <h5 className="menu-name " 

@@ -1,13 +1,15 @@
 import React from 'react'
 import OrderedItemsListItem from '../OrderedItemsListItem/OrderedItemsListItem'
 
-const OrderedItems = () => {
+import {v4 as uuid} from "uuid"
+const OrderedItems = ({orderedItems = []}) => {
+ 
     return (
         <div>
-            <OrderedItemsListItem/>
-            <OrderedItemsListItem/>
-            <OrderedItemsListItem/>
-            <OrderedItemsListItem/>
+           {
+               orderedItems.map(item => <OrderedItemsListItem item={item} key={uuid()}/> )
+           }
+           
         </div>
     )
 }

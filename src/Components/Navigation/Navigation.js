@@ -3,7 +3,7 @@ import {Navbar,Form,Button,Nav,NavDropdown,FormControl, Dropdown} from "react-bo
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faHome, faEnvelope, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faHome, faEnvelope, faBell, faInbox } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux';
 import {sidebarToggler} from "../../Redux/uiReducer/ui_actions";
 import { fetchCatagories } from "../../Redux/catagoryReducer/catagoryActions";
@@ -51,9 +51,7 @@ a{
   outline:none;
   box-shadow:none
 }
-&:hover{
-  opacity:0.7
-}
+
     background:transparent; 
   color:inherit;
   border-color:transparent;
@@ -84,16 +82,19 @@ const Navigation = (props) => {
     <Link className="nav-link" to="/">
       <FontAwesomeIcon icon={faHome}/>
     </Link>
-    <Link className="nav-link" to="/Messages">
+    <Link className="nav-link" to="/contacts/Messages">
+    <FontAwesomeIcon   icon={faInbox}/>
+    </Link>
+    <Link className="nav-link" to="/contacts/newsletter_subs">
     <FontAwesomeIcon   icon={faEnvelope}/>
     </Link>
     <Dropdown>
   <Dropdown.Toggle  id="dropdown-basic">
-   <FontAwesomeIcon icon={faBell}/>
+   <FontAwesomeIcon icon={faCog}/>
   </Dropdown.Toggle>
 
   <Dropdown.Menu>
-    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-1">Signout</Dropdown.Item>
     <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
     <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
   </Dropdown.Menu>

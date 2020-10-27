@@ -13,6 +13,7 @@ import ManageCatagories from '../../Pages/ManageCatagories/ManageCatagories'
 import ManageSlider from '../../Pages/ManageSlider/ManageSlider'
 import Contacts from '../../Pages/Contacts./Contacts'
 import AddNewProduct from '../../Pages/AddNewProduct/AddNewProduct'
+import NewsLetterSubs from '../NewsLetterSubs/NewsLetterSubs'
 
 const theme = {
     light:{
@@ -46,9 +47,9 @@ const MainContent = (props) => {
             <Route path='/manage_orders/:pagetype' component={AllOrders} exact/>
             <Route path='/manage_users/:pagetype' component={AllUser} exact/>
             <Route path='/manage_catagories/' component={ManageCatagories} exact/>
-            <Route path='/manage_slider/' component={ManageSlider} exact/>
+            <Route path='/manage_slider' component={ManageSlider} exact/>
             <Route path='/contacts/Messages' component={Contacts} exact/>
-
+            <Route path='/contacts/newsletter_subs' component={NewsLetterSubs} exact/>
             
             </Switch>
            </Container>

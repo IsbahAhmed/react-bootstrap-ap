@@ -5,7 +5,7 @@ import AddNewBtn from '../../Components/AddnewBtn/AddNewBtn'
 
 import { connect } from 'react-redux'
 
-import { useState } from 'react'
+
 const Allproducts = ({products}) => {
 
 

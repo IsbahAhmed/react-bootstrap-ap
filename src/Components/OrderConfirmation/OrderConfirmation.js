@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons'
-const OrderConfirmation = () => {
+import { faCheck, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons'
+
+import { connect } from 'react-redux'
+import { confirmOrder,cancelOrder } from '../../Redux/orders/ordersActions'
+const OrderConfirmation = ({orderObj,confirmOrder,cancelOrder}) => {
     const [show, setShow] = useState(false);
     const [modalData,setModalData] = useState({
         title:"Confirm Order?",
@@ -22,18 +25,25 @@ const OrderConfirmation = () => {
         }
         else{
             setModalData({
-                title:"Confirm Delete?",
-        body:"This will permanantly delete this order. User will get notified",
-        btnValue:"Delete"
+                title:"Confirm cancel?",
+        body:"This will permanantly cancel this order. User will get notified",
+        btnValue:"Cancel"
             })
         }
         setShow(true);
     }
+    var handleConfirmation =async ()=>{
+     await confirmOrder({...orderObj,confirmed:true});
+     setShow(false)
+    }
+    var handleCancelation =()=>{
+      cancelOrder({...orderObj,orderStatus:"canceled"}).then(()=>setShow(false))
+    }
   var {title,body,btnValue} = modalData;
     return (
         <React.Fragment>
-              <Button variant="success" name="cfrm_order" onClick={handleShow}><FontAwesomeIcon style={{pointerEvents:"none"}} icon={faCheck} /></Button>
-          <Button variant="danger" name="dlt_order" onClick={handleShow}><FontAwesomeIcon style={{pointerEvents:"none"}} icon={faTrash}/></Button>
+            {  !orderObj.confirmed && orderObj.orderStatus === "pending" ? <Button variant="success" name="cfrm_order" onClick={handleShow}><FontAwesomeIcon style={{pointerEvents:"none"}} icon={faCheck} /></Button>:""} 
+         { (orderObj.orderStatus === "pending") && <Button variant="danger" name="dlt_order" onClick={handleShow}><FontAwesomeIcon style={{pointerEvents:"none"}} icon={faTimes}/></Button>}
          
 
       <Modal show={show} onHide={handleClose}>
@@ -45,7 +55,7 @@ const OrderConfirmation = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant={btnValue === "Confirm" ? "primary":"danger"} onClick={handleClose}>
+          <Button variant={btnValue === "Confirm" ? "primary":"danger"} onClick={btnValue === "Confirm" ? handleConfirmation : handleCancelation}>
             {btnValue}
           </Button>
         </Modal.Footer>
@@ -53,5 +63,7 @@ const OrderConfirmation = () => {
         </React.Fragment>
     )
 }
-
-export default OrderConfirmation
+var actions ={
+confirmOrder,cancelOrder
+}
+export default connect(null,actions)(OrderConfirmation)
